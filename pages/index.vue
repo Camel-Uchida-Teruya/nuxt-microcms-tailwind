@@ -2,7 +2,7 @@
   <div id="top" class="top">
     <main>
       <section class="mv">
-        <ul class="mv__slides pt-5625 relative">
+        <ul class="mv__slides relative">
           <li
             v-for="slide in this.$store.state.slides"
             :key="slide.text"
@@ -10,11 +10,14 @@
             :class="{ 'mv__slide--active': slide.active }"
           >
             <h2 class="absolute w-full h-full">
-              <img class="absolute w-full h-full object-cover" :src="slide.img" :alt="slide.text">
+              <picture>
+                <source srcset="">
+                <img class="absolute w-full h-full object-cover" :src="`${slide.img}.jpg`" :alt="slide.text">
+              </picture>
             </h2>
           </li>
         </ul>
-        <ul class="mv__pagination ml-auto mr-auto">
+        <ul class="mv__pagination mt-6 ml-auto mr-auto">
           <li v-for="(slide, index) in this.$store.state.slides" :key="slide.text">
             <button
               class="mv__btn block w-full h-full rounded-full"
@@ -27,7 +30,7 @@
       <div class="main grid gap-x-8 max-w-screen-lg m-auto pt-10">
         <section class="information">
           <CommonHeading1>お知らせ</CommonHeading1>
-          <ul class="grid grid-cols-1 gap-y-6">
+          <ul class="grid grid-cols-1 gap-y-6 mt-6">
             <li v-for="news in contents" :key="news.id" class="information__item grid gap-x-5">
               <time
                 :datetime="news.date.slice(0, 10)"
@@ -104,6 +107,28 @@ export default {
 #top {
   min-height: 2000px;
   .mv {
+    &__slides {
+      padding-top: 50.78125%;
+      &::before,
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        z-index: 10;
+        width: 21%;
+        height: 100%;
+        filter: blur(16px);
+      }
+      &::before {
+        left: -6%;
+        background-image: linear-gradient(to right, #FFF 35%, rgba(#FFF, 0));
+      }
+      &::after {
+        right: -6%;
+        background-image: linear-gradient(to left, #FFF 35%, rgba(#FFF, 0));
+      }
+    }
     &__slide {
       opacity: 0;
       transition: opacity 1s ease-out;
@@ -116,7 +141,6 @@ export default {
       flex-flow: row wrap;
       justify-content: space-between;
       align-items: center;
-      margin-top: 20px;
       max-width: 100px;
       li {
         width: 8px;
