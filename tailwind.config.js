@@ -24,6 +24,12 @@ module.exports = {
       },
       borderWidth: {
         3: '3px'
+      },
+      lineHeight: {
+        'super-tight': '1.15'
+      },
+      gridTemplateColumns: {
+        'evenly-full': 'repeat(auto-fit, minmax(0, auto))'
       }
     },
   },

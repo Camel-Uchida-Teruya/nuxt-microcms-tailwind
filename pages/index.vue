@@ -11,7 +11,7 @@
           >
             <h2 class="absolute w-full h-full">
               <picture>
-                <source srcset="">
+                <source :srcset="`${slide.img}@2x.jpg`" media="(max-width: 767.98px)">
                 <img class="absolute w-full h-full object-cover" :src="`${slide.img}.jpg`" :alt="slide.text">
               </picture>
             </h2>
@@ -82,7 +82,7 @@ export default {
   async asyncData({ $microcms }) {
     const data = await $microcms.get({
       endpoint: 'news',
-      queries: { limit: 50 }
+      queries: { limit: 12 }
     });
     return data;
   },
@@ -107,6 +107,7 @@ export default {
 #top {
   min-height: 2000px;
   .mv {
+    overflow-x: hidden;
     &__slides {
       padding-top: 50.78125%;
       &::before,
